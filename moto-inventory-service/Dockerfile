@@ -1,8 +1,5 @@
-FROM openjdk:8-jdk-alpine
-VOLUME /tmp
-ARG DEPENDENCY=target/dependency
-COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY ${DEPENDENCY}/META-INF /app/META-INF
-COPY ${DEPENDENCY}/BOOT-INF/classes /app
-ENTRYPOINT ["java","-cp","app:app/lib/*","com.example.motoinventoryservice.MotoInventoryServiceApplication"]
+FROM java:8
+EXPOSE 8080
+ADD /target/moto-inventory-service-0.0.1-SNAPSHOT.jar moto-inventory-service-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["java", "-jar", "moto-inventory-service-0.0.1-SNAPSHOT.jar"]
 

@@ -1,8 +1,5 @@
-FROM openjdk:8-jdk-alpine
-VOLUME /tmp
-ARG DEPENDENCY=target/dependency
-COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY ${DEPENDENCY}/META-INF /app/META-INF
-COPY ${DEPENDENCY}/BOOT-INF/classes /app
-ENTRYPOINT ["java","-cp","app:app/lib/*","com.trilogyEd.springconfigserver.SpringConfigServerApplication"]
+FROM java:8
+EXPOSE 9999
+ADD /target/spring-config-server-0.0.1-SNAPSHOT.jar spring-config-server-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["java","-jar","spring-config-server-0.0.1-SNAPSHOT.jar"]
 

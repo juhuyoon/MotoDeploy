@@ -1,2 +1,4 @@
 spring.application.name: moto-inventory-service
-spring.cloud.config.uri: http://localhost:9999
+spring.cloud.config.uri: http://192.168.99.100:9999
+eureka.client.service-url.defaultZone: http://192.168.99.100:8761/eureka/
+server.port: 4545

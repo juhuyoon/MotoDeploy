@@ -1,0 +1,8 @@
+version: '3'
+services:
+  eureka-server:
+    expose:
+      - 8761
+    ports:
+      - "8761:8761"
+    image: "springio/eureka-service-registry"

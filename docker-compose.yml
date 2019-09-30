@@ -1,0 +1,42 @@
+version: '3'
+services: 
+  db:
+    image: mysql:5.7
+    expose: 
+    - 3306
+    ports: 
+     - 3306:3306
+    environment: 
+      MYSQL_ROOT_PASSWORD: 'rootroot'
+      MYSQL_DATABASE: 'moto-inventory'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+  config-server:
+    image: 'config-server'
+    ports:
+      - 9999:9999
+  eureka-server:
+    image: 'eureka-moto'
+    ports:
+      - 8761:8761
+  moto-service:
+    image: 'moto-with-eureka'
+    ports:
+      - 4545:4545
+    depends_on: 
+      - config-server
+      - eureka-server
+      - 'db'
+    environment: 
+      DATABASE_HOST: 'db'
+      DATABASE_USER: 'root'
+      DATABASE_PASSWORD: 'rootroot'
+      DATABASE_NAME: 'moto-inventory'
+      DATABASE_PORT: 3306
+  vin-service:
+    image: 'vin-lookup'
+    ports:
+     - 3333:3333
+    depends_on: 
+     - config-server
+     - eureka-server
+     - db
